@@ -2,9 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Loading Animation Simulator</title>
 </head>
-<body>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+
+<div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+<div id="status">Please wait</div>
+
+
+<script>
+        //text above is displayed with alignation as well as background color just html
+    function runLoadingAnimation() {
+        //status elements
+        const loader = document.getElementById("loader"); //loader status element
+        const status = document.getElementById("status"); // status 'status' element
+
+        const frames = ["⏳", "⌛", ".", "..", "..."]; //Animation frames that the animation cycles through
+        let index = 0;
+        let cycleCount = 0; //Only completes 1 cycle
+        const maxCycles = 10; //Constant total number of cycles before the cycle stops.
+
+        const interval = setInterval(() => {
+            loader.textContent = frames[index % frames.length]; //Shows current frame on screen
+            index++;
+            if (index % frames.length === 0) {
+                cycleCount++; //counts cycle
+            }
+            if (cycleCount >= maxCycles) {
+                clearInterval(interval);
+                loader.textContent = "✅"; // checkmark on top of symbol when displayed
+                status.textContent = "Done!"; //After loading animation display Done and a symbol.
+            }
+        }, 500);
+    }
+
+    runLoadingAnimation(); //When the page loads it runs the animation
+</script>
 
 </body>
 </html>
